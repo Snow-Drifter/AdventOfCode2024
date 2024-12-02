@@ -4,6 +4,7 @@ pub fn run_day(day_number: usize) {
     let file_path = input_util::get_file_path(day_number);
     match day_number {
         1 => run(solutions::day_01::Day01 {}, &file_path),
+        2 => run(solutions::day_02::Day02 {}, &file_path),
         _ => todo!(),
     }
 }
