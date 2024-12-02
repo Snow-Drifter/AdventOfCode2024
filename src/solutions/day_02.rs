@@ -10,7 +10,7 @@ impl Solution for Day02 {
             .filter(|report| Self::increasing(report) || Self::decreasing(report))
             .count() as i64
     }
-    //453
+
     fn part_two(&self, input_dir: &str) -> i64 {
         let reports = Self::parse_lines(input_dir);
         reports
@@ -38,42 +38,36 @@ impl Day02 {
         report.windows(2).all(Self::decreased)
     }
     fn lenient_increasing(report: &[i64]) -> bool {
-        let mut pairs = report.windows(2);
-        let mut cursor = pairs.next();
-        let mut failed = false;
-        while cursor.is_some() {
-            let next = cursor.unwrap();
-            if !Self::increased(&next) {
-                if failed {
-                    return false;
-                } else {
-                    failed = true;
-                }
-                // skip next pair
-                pairs.next();
-            }
-            cursor = pairs.next();
+        let pairs = report.windows(2);
+        if let Some(broken) = pairs
+            .enumerate()
+            .find(|(index, pair)| !Self::increased(pair))
+            .map(|(index, _)| index)
+        {
+            let lists = vec![
+                [&report[0..broken], &report[broken + 1..]].concat(),
+                [&report[0..broken + 1], &report[broken + 2..]].concat(),
+            ];
+            lists.iter().any(|list| Self::increasing(list))
+        } else {
+            true
         }
-        true
     }
     fn lenient_decreasing(report: &[i64]) -> bool {
-        let mut pairs = report.windows(2);
-        let mut cursor = pairs.next();
-        let mut failed = false;
-        while cursor.is_some() {
-            let next = cursor.unwrap();
-            if !Self::decreased(&next) {
-                if failed {
-                    return false;
-                } else {
-                    failed = true;
-                }
-                // skip next pair
-                pairs.next();
-            }
-            cursor = pairs.next();
+        let pairs = report.windows(2);
+        if let Some(broken) = pairs
+            .enumerate()
+            .find(|(index, pair)| !Self::decreased(pair))
+            .map(|(index, _)| index)
+        {
+            let lists = vec![
+                [&report[0..broken], &report[broken + 1..]].concat(),
+                [&report[0..broken + 1], &report[broken + 2..]].concat(),
+            ];
+            lists.iter().any(|list| Self::decreasing(list))
+        } else {
+            true
         }
-        true
     }
     fn parse_lines(input_dir: &str) -> Vec<Vec<i64>> {
         input_util::read_file_buffered(input_dir)
