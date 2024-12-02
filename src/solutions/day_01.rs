@@ -2,8 +2,6 @@ use crate::{boilerplate::Solution, input_util};
 use std::collections::HashMap;
 use std::ops::AddAssign;
 
-use regex::Regex;
-
 pub struct Day01;
 
 impl Solution for Day01 {
@@ -35,12 +33,12 @@ impl Day01 {
     fn parse_lines(input_dir: &str) -> (Vec<i64>, Vec<i64>) {
         input_util::read_file_buffered(input_dir)
             .map(|line_read| {
-                let line = line_read.expect("The input file is parsable");
-                let pattern = Regex::new(r"(\d+)\s+(\d+)").unwrap();
-                let captures = pattern.captures(&line).unwrap();
-                let left = captures.get(1).unwrap().as_str().parse::<i64>().unwrap();
-                let right = captures.get(2).unwrap().as_str().parse::<i64>().unwrap();
-                (left, right)
+                let pair: Vec<i64> = line_read
+                    .expect("The input file is parsable")
+                    .split_whitespace()
+                    .map(|number_str| number_str.parse().unwrap())
+                    .collect();
+                (pair[0], pair[1])
             })
             .unzip()
     }
