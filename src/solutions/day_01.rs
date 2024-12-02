@@ -1,4 +1,6 @@
-use crate::{input_util, boilerplate::Solution};
+use crate::{boilerplate::Solution, input_util};
+use std::collections::HashMap;
+use std::ops::AddAssign;
 
 use regex::Regex;
 
@@ -6,7 +8,32 @@ pub struct Day01;
 
 impl Solution for Day01 {
     fn part_one(&self, input_dir: &str) -> i64 {
-        let (mut old, mut new): (Vec<_>, Vec<_>) = input_util::read_file_buffered(input_dir)
+        let (mut left_list, mut right_list) = Self::parse_lines(input_dir);
+        left_list.sort();
+        right_list.sort();
+        left_list
+            .iter()
+            .zip(right_list.iter())
+            .map(|(a, b)| (a - b).abs())
+            .sum()
+    }
+
+    fn part_two(&self, input_dir: &str) -> i64 {
+        let (mut left_list, mut right_list) = Self::parse_lines(input_dir);
+        let mut frequency: HashMap<i64, i64> = HashMap::default();
+        right_list
+            .iter()
+            .for_each(|&right| frequency.entry(right).or_default().add_assign(1));
+        left_list
+            .iter()
+            .map(|left| frequency.get(left).unwrap_or(&0) * left)
+            .sum()
+    }
+}
+
+impl Day01 {
+    fn parse_lines(input_dir: &str) -> (Vec<i64>, Vec<i64>) {
+        input_util::read_file_buffered(input_dir)
             .map(|line_read| {
                 let line = line_read.expect("The input file is parsable");
                 let pattern = Regex::new(r"(\d+)\s+(\d+)").unwrap();
@@ -15,13 +42,6 @@ impl Solution for Day01 {
                 let right = captures.get(2).unwrap().as_str().parse::<i64>().unwrap();
                 (left, right)
             })
-            .unzip();
-        old.sort();
-        new.sort();
-        old.iter().zip(new.iter()).map(|(a, b)| (a - b).abs()).sum()
-    }
-
-    fn part_two(&self, input_dir: &str) -> i64 {
-        0
+            .unzip()
     }
 }
