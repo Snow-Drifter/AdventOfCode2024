@@ -5,6 +5,7 @@ pub fn run_day(day_number: usize) {
     match day_number {
         1 => run(solutions::day_01::Day01 {}, &file_path),
         2 => run(solutions::day_02::Day02 {}, &file_path),
+        3 => run(solutions::day_03::Day03 {}, &file_path),
         _ => todo!(),
     }
 }

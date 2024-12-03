@@ -41,7 +41,7 @@ impl Day02 {
         let pairs = report.windows(2);
         if let Some(broken) = pairs
             .enumerate()
-            .find(|(index, pair)| !Self::increased(pair))
+            .find(|(_, pair)| !Self::increased(pair))
             .map(|(index, _)| index)
         {
             let lists = vec![
@@ -57,7 +57,7 @@ impl Day02 {
         let pairs = report.windows(2);
         if let Some(broken) = pairs
             .enumerate()
-            .find(|(index, pair)| !Self::decreased(pair))
+            .find(|(_, pair)| !Self::decreased(pair))
             .map(|(index, _)| index)
         {
             let lists = vec![
