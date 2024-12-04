@@ -1,4 +1,5 @@
-use crate::{boilerplate::Solution, input_util};
+use crate::input_util;
+use crate::solutions::Solution;
 
 pub struct Day02;
 

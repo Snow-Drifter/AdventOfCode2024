@@ -1,16 +1,30 @@
-use boilerplate::run_day;
+use std::env;
 
-mod boilerplate;
 mod input_util;
 mod solutions;
 
 fn main() {
-    println!("My advent of code 2024 adventure");
+    let days_implemented = [1, 2, 3];
 
-    let first = 1;
-    let last = 3;
-    for day_number in first..=last {
-        println!("======== Day {} =========", day_number);
-        run_day(day_number);
+    println!("My advent of code 2024 adventure");
+    let args: Vec<String> = env::args().collect();
+    if let Some(day_number) = args.get(1).map(|arg| arg.parse::<usize>().ok()).flatten() {
+        // run specified
+        if days_implemented.contains(&day_number) {
+            println!("======== Day {} =========", day_number);
+            let (part1, part2) = solutions::run_day(day_number);
+            println!("P1: {}", part1);
+            println!("P2: {}", part2);
+        } else {
+            panic!("Day {} not implemented", day_number);
+        }
+    } else {
+        // run all
+        for day_number in days_implemented {
+            println!("======== Day {} =========", day_number);
+            let (part1, part2) = solutions::run_day(day_number);
+            println!("P1: {}", part1);
+            println!("P2: {}", part2);
+        }
     }
 }

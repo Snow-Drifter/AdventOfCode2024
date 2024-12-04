@@ -1,6 +1,7 @@
-use crate::{boilerplate::Solution, input_util};
+use crate::input_util;
 use std::collections::HashMap;
 use std::ops::AddAssign;
+use crate::solutions::Solution;
 
 pub struct Day01;
 
