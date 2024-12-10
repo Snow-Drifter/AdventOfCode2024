@@ -5,7 +5,7 @@ use crate::input_util;
 pub struct Day03;
 
 impl Solution for Day03 {
-    fn part_one(&self, input_dir: &str) -> i64 {
+    fn part_one(input_dir: &str) -> i64 {
         let functions = Self::parse_lines(input_dir);
         functions
             .iter()
@@ -19,7 +19,7 @@ impl Solution for Day03 {
             .sum()
     }
 
-    fn part_two(&self, input_dir: &str) -> i64 {
+    fn part_two(input_dir: &str) -> i64 {
         Self::parse_lines(input_dir)
             .iter()
             .fold((0, true), |(sum, enabled), token| match (token, enabled) {

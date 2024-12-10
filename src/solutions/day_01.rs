@@ -6,7 +6,7 @@ use crate::solutions::Solution;
 pub struct Day01;
 
 impl Solution for Day01 {
-    fn part_one(&self, input_dir: &str) -> i64 {
+    fn part_one(input_dir: &str) -> i64 {
         let (mut left_list, mut right_list) = Self::parse_lines(input_dir);
         left_list.sort();
         right_list.sort();
@@ -17,7 +17,7 @@ impl Solution for Day01 {
             .sum()
     }
 
-    fn part_two(&self, input_dir: &str) -> i64 {
+    fn part_two(input_dir: &str) -> i64 {
         let (left_list, right_list) = Self::parse_lines(input_dir);
         let mut frequency: HashMap<i64, i64> = HashMap::default();
         right_list

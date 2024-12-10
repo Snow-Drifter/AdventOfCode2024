@@ -4,7 +4,7 @@ mod input_util;
 mod solutions;
 
 fn main() {
-    let days_implemented = [1, 2, 3];
+    let days_implemented = [10];
 
     println!("My advent of code 2024 adventure");
     let args: Vec<String> = env::args().collect();

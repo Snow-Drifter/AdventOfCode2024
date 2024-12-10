@@ -4,7 +4,7 @@ use crate::solutions::Solution;
 pub struct Day02;
 
 impl Solution for Day02 {
-    fn part_one(&self, input_dir: &str) -> i64 {
+    fn part_one(input_dir: &str) -> i64 {
         let reports = Self::parse_lines(input_dir);
         reports
             .iter()
@@ -12,7 +12,7 @@ impl Solution for Day02 {
             .count() as i64
     }
 
-    fn part_two(&self, input_dir: &str) -> i64 {
+    fn part_two(input_dir: &str) -> i64 {
         let reports = Self::parse_lines(input_dir);
         reports
             .iter()
