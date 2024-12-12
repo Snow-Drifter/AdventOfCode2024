@@ -4,6 +4,7 @@ mod day_03;
 mod day_04;
 mod day_09;
 mod day_10;
+mod day_11;
 
 use day_01::*;
 use day_02::*;
@@ -11,6 +12,7 @@ use day_03::*;
 use day_04::*;
 use day_09::*;
 use day_10::*;
+use day_11::*;
 
 pub fn run_day(day_number: usize) -> (i64, i64) {
     let input_directory = get_file_path(day_number);
@@ -21,6 +23,7 @@ pub fn run_day(day_number: usize) -> (i64, i64) {
         4 => run_solution::<Day04>(&input_directory),
         9 => run_solution::<Day09>(&input_directory),
         10 => run_solution::<Day10>(&input_directory),
+        11 => run_solution::<Day11>(&input_directory),
         _ => unimplemented!("Day not implemented for {}", day_number),
     }
 }
